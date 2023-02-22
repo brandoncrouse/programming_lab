@@ -5,6 +5,7 @@ using UnityEngine;
 public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private HairAnchor hairAnchor;
+    [SerializeField] private GameObject hairObject;
     public float yOffset, spriteRot;
     public float squashFactor, stretchFactor, ssLerpSpeed;
     public GameObject sprite;
@@ -20,15 +21,30 @@ public class CharacterMovement : MonoBehaviour
     private bool canLand = true;
     private bool willFlip = false;
 
+    private bool canDash = true, isDashing;
+    public float dashingPower = 24f, dashingTime = 0.2f, dashingCooldown = 1f;
+    [SerializeField] private TrailRenderer tr;
+
+    public AudioSource sfxSource, stepSource;
+    public AudioClip jumpSound, dashSound;
+
     public bool onGround = false;
     public Collider2D floorCollider;
     public ContactFilter2D floorFilter;
+    private float dirFacing = 1f;
 
     public ParticleSystem jumpDust, landDust, flipDust;
     private TrailRenderer trail;
 
+    private Shader shaderGUItext, shaderSpritesDefault;
+
     private void Start()
     {
+        //init shader for white flash
+        shaderGUItext = Shader.Find("GUI/Text Shader");
+        shaderSpritesDefault = Shader.Find("Sprites/Default");
+
+        //init components
         rb = GetComponent<Rigidbody2D>();
         trail = GetComponent<TrailRenderer>();
         srender = sprite.GetComponent<SpriteRenderer>();
@@ -37,21 +53,17 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
+
+        if (isDashing)
+        {
+            return;
+        }
+
         horizontalMovement = Input.GetAxis("Horizontal");
 
         sprite.transform.rotation = Quaternion.Euler(0.0f,0.0f,horizontalMovement * -spriteRot);
 
         onGround = floorCollider.IsTouching(floorFilter);
-
-        //dont emit trail when not moving - prevents ugly long trails when jumping
-        if (rb.velocity.x == 0 && rb.velocity.y == 0)
-        {
-            trail.emitting = false;
-        }
-        else
-        {
-            trail.emitting = true;
-        }
 
 
         //kick up dust when landing
@@ -64,9 +76,21 @@ public class CharacterMovement : MonoBehaviour
                 canLand = false;
                 landDust.Play();
             }
+            if (rb.velocity.x != 0)
+            {
+                if (!stepSource.isPlaying)
+                {
+                    stepSource.Play();
+                }
+            }
+            else
+            {
+                stepSource.Stop();
+            }
         }
         else
         {
+            stepSource.Stop();
             canLand = true;
         }
 
@@ -75,6 +99,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (onGround)
             {
+                sfxSource.PlayOneShot(jumpSound);
                 justJumped = true;
             }
             else
@@ -86,12 +111,23 @@ public class CharacterMovement : MonoBehaviour
                 }
             }
         }
+        
+        //dash
+        if (canDash && Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(Dash());
+        }
 
         
     }
 
     private void FixedUpdate()
     {
+        if (isDashing)
+        {
+            return;
+        }
+
         rb.velocity = new Vector2(horizontalMovement * moveSpeed, rb.velocity.y);
 
         //lerp sprite squash n stretch
@@ -114,19 +150,13 @@ public class CharacterMovement : MonoBehaviour
         {
             srender.flipX = false;
             hairAnchor.transform.position = new Vector3(transform.position.x-0.1f,transform.position.y+0.12f,transform.position.z+0f);
-            hairAnchor.hairSprites[0].flipX = false;
-            hairAnchor.hairSprites[1].flipX = false;
-            hairAnchor.hairSprites[2].flipX = false;
-            hairAnchor.hairSprites[3].flipX = false;
+            dirFacing = 1f;
         }
         if (horizontalMovement < 0)
         {
             srender.flipX = true;
             hairAnchor.transform.position = new Vector3(transform.position.x+0.1f,transform.position.y+0.12f,transform.position.z+0f);
-            hairAnchor.hairSprites[0].flipX = true;
-            hairAnchor.hairSprites[1].flipX = true;
-            hairAnchor.hairSprites[2].flipX = true;
-            hairAnchor.hairSprites[3].flipX = true;
+            dirFacing = -1f;
         }
 
         if (srender.flipX != willFlip && onGround)
@@ -149,13 +179,37 @@ public class CharacterMovement : MonoBehaviour
         hairAnchor.partOffset = currentOffset;
     }
 
-    IEnumerator jumpTimer()
+    private IEnumerator jumpTimer()
     {
         yield return new WaitForSeconds(0.1f);
         tryJump = false;
     }
 
-    static float roundTo(float value, float multipleOf) {
-        return Mathf.Round(value/multipleOf) * multipleOf;
+    //thanks to Bendux on youtube for the dash script
+    private IEnumerator Dash()
+    {
+        sfxSource.PlayOneShot(dashSound);
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0;
+        rb.velocity = new Vector2(dirFacing * dashingPower, 0f);
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        tr.emitting = false;
+        rb.gravityScale = originalGravity;
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+        StartCoroutine(blinkSprite());
+    }
+
+    private IEnumerator blinkSprite()
+    {
+        srender.material.shader = shaderGUItext;
+        srender.material.color = Color.white;
+        yield return new WaitForSeconds(0.07f);
+        srender.material.shader = shaderSpritesDefault;
+        srender.material.color = Color.white;
     }
 }

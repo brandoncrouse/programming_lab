@@ -9,7 +9,7 @@ public class HairAnchor : MonoBehaviour
 
     public float lerpSpeed = 20f;
 
-    private Transform[] hairParts;
+    public Transform[] hairParts;
 
     public SpriteRenderer[] hairSprites;
 
