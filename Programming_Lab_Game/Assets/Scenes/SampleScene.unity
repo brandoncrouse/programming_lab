@@ -254,15 +254,15 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.0031250003
     y: 0
-    width: 1
+    width: 0.99375004
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.109375
+  orthographic size: 1.875
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2932,11 +2932,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1671632050 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2789465221867136233, guid: 2c5a41d1dac970b439730fe812aceb40, type: 3}
-  m_PrefabInstance: {fileID: 2789465222602359155}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1675954573
 GameObject:
   m_ObjectHideFlags: 0
@@ -3934,10 +3929,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8036011567332259424, guid: 2c5a41d1dac970b439730fe812aceb40, type: 3}
-      propertyPath: hairObject
+    - target: {fileID: 2789465223699203803, guid: 2c5a41d1dac970b439730fe812aceb40, type: 3}
+      propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 1671632050}
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    - target: {fileID: 8036011567332259429, guid: 2c5a41d1dac970b439730fe812aceb40, type: 3}
+      propertyPath: m_Time
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036011567332259429, guid: 2c5a41d1dac970b439730fe812aceb40, type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8036011567683838145, guid: 2c5a41d1dac970b439730fe812aceb40, type: 3}
       propertyPath: m_RootOrder
       value: 1
