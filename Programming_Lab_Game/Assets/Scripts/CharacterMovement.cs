@@ -8,8 +8,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private GameObject hairObject;
     public float yOffset, spriteRot;
     public float squashFactor, stretchFactor, ssLerpSpeed, camSpeed;
-    public GameObject sprite, dashGhostPrefab;
-    private GameObject dashGhost;
+    public GameObject sprite;
 
     //movement
     public float maxSpeed, coyoteTime = 0.125f;
@@ -82,7 +81,7 @@ public class CharacterMovement : MonoBehaviour
         wallCheck.transform.position = new Vector3(transform.position.x + (dirFacing * 0.3125f), transform.position.y + 0.1875f, 0f);
 
         //camera movement
-        camPos = Vector3.Lerp(camPos, new Vector3(transform.position.x,0f,-3f), Time.deltaTime * camSpeed);
+        camPos = Vector3.Lerp(camPos, new Vector3(transform.position.x,transform.position.y + 1f,-3f), Time.deltaTime * camSpeed);
         mainCam.transform.position = camPos;
         hairSpriteOffsets();
 
@@ -149,7 +148,6 @@ public class CharacterMovement : MonoBehaviour
         {
             if (onGround)
             {
-                sfxSource.PlayOneShot(jumpSound);
                 justJumped = true;
             }
             else
@@ -166,7 +164,6 @@ public class CharacterMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && coyoteJumping && rb.velocity.y <= 0f)
         {
             justJumped = true;
-            sfxSource.PlayOneShot(jumpSound);
             if (didWallSlide)
             {
                 canWallSlide = false;
@@ -200,6 +197,7 @@ public class CharacterMovement : MonoBehaviour
         //when jump
         if (justJumped)
         {
+            sfxSource.PlayOneShot(jumpSound);
             sprite.transform.localScale = new Vector3(0.8f * stretchFactor,1.3f * stretchFactor,1f);
             moveSpeed = maxSpeed * jumpDash;
             jumpDust.Play();
@@ -315,7 +313,6 @@ public class CharacterMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
             wallSlidingSpeed = Mathf.Clamp(wallSlidingSpeed += wallSlider * Time.deltaTime, 0f, 14f);
             wallSlider += 7f * Time.deltaTime;
-            Debug.Log(wallSlidingSpeed);
             coyoteJumping = true;
             didWallSlide = true;
         }

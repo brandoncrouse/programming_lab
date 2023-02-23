@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 690579675}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 696206813}
   - component: {fileID: 696206814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 7218178766367832953}
   - component: {fileID: 3609234367801792716}
   - component: {fileID: 8621876734619596363}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DashDustPS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4993,7 +4993,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465221817465614}
   - component: {fileID: 2789465221817465613}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5077,7 +5077,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465221830575460}
   - component: {fileID: 2789465221830575467}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5161,7 +5161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465221852566594}
   - component: {fileID: 2789465221852566593}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5246,7 +5246,7 @@ GameObject:
   - component: {fileID: 2789465221867136238}
   - component: {fileID: 2789465221867136239}
   - component: {fileID: 2789465221867136232}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5356,7 +5356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465222206092255}
   - component: {fileID: 2789465222206092254}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5440,7 +5440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465222391455482}
   - component: {fileID: 2789465222391455481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5524,7 +5524,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465222492711411}
   - component: {fileID: 2789465222492711410}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5608,7 +5608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465222816380884}
   - component: {fileID: 2789465222816380891}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5692,7 +5692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465223167515781}
   - component: {fileID: 2789465223167515780}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5777,7 +5777,7 @@ GameObject:
   - component: {fileID: 2789465223380592305}
   - component: {fileID: 2789465223380592307}
   - component: {fileID: 2789465223380592306}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JumpDustPS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10588,7 +10588,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465223436178669}
   - component: {fileID: 2789465223436178668}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10672,7 +10672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465223592813811}
   - component: {fileID: 2789465223592813810}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: HairPart (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10756,7 +10756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2789465223699203796}
   - component: {fileID: 2789465223699203803}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10771,7 +10771,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2789465223699203797}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.2446, z: 0}
+  m_LocalPosition: {x: 0, y: -0.24500006, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10841,7 +10841,7 @@ GameObject:
   - component: {fileID: 4007328959790751780}
   - component: {fileID: 4007328959790751782}
   - component: {fileID: 4007328959790751783}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LandDustPS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15653,7 +15653,7 @@ GameObject:
   - component: {fileID: 6309123638628622911}
   - component: {fileID: 6309123638628622909}
   - component: {fileID: 6309123638628622908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TurnDustPS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20474,7 +20474,7 @@ GameObject:
   - component: {fileID: 789273342}
   - component: {fileID: 789273343}
   - component: {fileID: 789273344}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20525,7 +20525,6 @@ MonoBehaviour:
   ssLerpSpeed: 8
   camSpeed: 1000
   sprite: {fileID: 2789465223699203797}
-  dashGhostPrefab: {fileID: 306335388669833055, guid: 928c65c56018a86499655afc79a39f00, type: 3}
   maxSpeed: 5
   coyoteTime: 0.125
   mainCam: {fileID: 0}
