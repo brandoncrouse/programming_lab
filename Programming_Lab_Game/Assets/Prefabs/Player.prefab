@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1680239149272790841}
   m_LocalRotation: {x: -0, y: -0, z: 0.7058741, w: 0.70833737}
   m_LocalPosition: {x: -0.027, y: 0.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8036011567683838145}
@@ -5090,8 +5090,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2789465221867136233}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.08, y: 0.133, z: 0}
-  m_LocalScale: {x: 0.34, y: 0.3, z: 2.983423}
+  m_LocalPosition: {x: -0.16, y: 0.49999997, z: 0}
+  m_LocalScale: {x: 0.68, y: 0.6, z: 2.983423}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2789465222816380884}
@@ -5622,7 +5622,7 @@ Transform:
   m_GameObject: {fileID: 2789465223380592304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.018, y: -0.219, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8036011567683838145}
@@ -10686,7 +10686,7 @@ Transform:
   m_GameObject: {fileID: 4007328959790751781}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.018, y: -0.241, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8036011567683838145}
@@ -15498,7 +15498,7 @@ Transform:
   m_GameObject: {fileID: 6309123638628622910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.018, y: -0.225, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8036011567683838145}
@@ -20296,7 +20296,7 @@ GameObject:
   - component: {fileID: 8036011567683838158}
   - component: {fileID: 2153349134367044074}
   - component: {fileID: 8036011567683838144}
-  - component: {fileID: 8036011567332259425}
+  - component: {fileID: 3331713038261217037}
   - component: {fileID: 8036011567332259426}
   - component: {fileID: 4270116722344875377}
   - component: {fileID: 5807448556183391409}
@@ -20346,18 +20346,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hairAnchor: {fileID: 2789465221867136232}
   hairObject: {fileID: 2789465221867136233}
-  yOffset: -0.021
+  yOffset: -0.042
   spriteRot: 6.3
   squashFactor: 1
   stretchFactor: 1
   ssLerpSpeed: 8
   sprite: {fileID: 2789465223699203797}
   dashGhostPrefab: {fileID: 306335388669833055, guid: 928c65c56018a86499655afc79a39f00, type: 3}
-  maxSpeed: 2.5
+  maxSpeed: 5
   coyoteTime: 0.1
-  jumpForce: 5
+  jumpForce: 12
   jumpDash: 1.3
-  dashingPower: 20
+  dashingPower: 40
   dashingTime: 0.07
   dashingCooldown: 1
   tr: {fileID: 8036011567332259429}
@@ -20367,7 +20367,7 @@ MonoBehaviour:
   dashSound: {fileID: 8300000, guid: 00c97cf1937ebbf459bfda69bb1455e6, type: 3}
   zapSound: {fileID: 8300000, guid: 0a23747b8d4ec4e49bc99d7b84d9b395, type: 3}
   onGround: 0
-  floorCollider: {fileID: 8036011567332259425}
+  floorCollider: {fileID: 3331713038261217037}
   floorFilter:
     useTriggers: 1
     useLayerMask: 1
@@ -20451,7 +20451,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0146781355, y: 0.012186408}
+  m_Offset: {x: 0.00005555153, y: 0.29}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.53846157, y: 0.47058824}
@@ -20462,7 +20462,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.38220814, y: 0.49969602}
+  m_Size: {x: 0.70559263, y: 0.999392}
   m_EdgeRadius: 0
 --- !u!50 &8036011567683838144
 Rigidbody2D:
@@ -20479,14 +20479,14 @@ Rigidbody2D:
   m_Mass: 1.5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.5
+  m_GravityScale: 3
   m_Material: {fileID: 6200000, guid: 7c824a830c6b3a64b9751668b32f057f, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &8036011567332259425
-CapsuleCollider2D:
+--- !u!61 &3331713038261217037
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -20498,9 +20498,19 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013531029, y: -0.23684302}
-  m_Size: {x: 0.28713885, y: 0.02529407}
-  m_Direction: 1
+  m_Offset: {x: -0.0315, y: -0.236843}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.562, y: 0.05058814}
+  m_EdgeRadius: 0
 --- !u!82 &8036011567332259426
 AudioSource:
   m_ObjectHideFlags: 0
@@ -20750,10 +20760,10 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Time: 0.07
+  m_Time: 0.1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.3
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:

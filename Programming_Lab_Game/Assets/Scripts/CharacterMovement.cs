@@ -140,21 +140,8 @@ public class CharacterMovement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                //dashGhost = (GameObject) Instantiate(dashGhostPrefab, transform.position, Quaternion.identity);
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                Destroy(dashGhost);
                 StartCoroutine(Dash());
             }
-        }
-        
-        //update dashghost position and sprite
-        if (dashGhost != null)
-        {
-            dashGhost.transform.position = new Vector3(transform.position.x + (1.5f * dirFacing), transform.position.y - 0.25f,1f);
-            dashGhost.transform.localScale = new Vector3(dirFacing, 1f, 1f);
         }
         
     }
@@ -184,7 +171,7 @@ public class CharacterMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x,jumpForce);
         }
 
-        rb.velocity = new Vector2(rb.velocity.x,Mathf.Max(rb.velocity.y,-7f));
+        rb.velocity = new Vector2(rb.velocity.x,Mathf.Max(rb.velocity.y,-14f));
         
         willFlip = srender.flipX;
 
@@ -192,13 +179,13 @@ public class CharacterMovement : MonoBehaviour
         if (horizontalMovement > 0)
         {
             srender.flipX = false;
-            hairAnchor.transform.position = new Vector3(transform.position.x-0.1f,transform.position.y+0.12f,transform.position.z+0f);
+            hairAnchor.transform.position = new Vector3(transform.position.x-0.16f,transform.position.y+0.5f,transform.position.z+0f);
             dirFacing = 1f;
         }
         if (horizontalMovement < 0)
         {
             srender.flipX = true;
-            hairAnchor.transform.position = new Vector3(transform.position.x+0.1f,transform.position.y+0.12f,transform.position.z+0f);
+            hairAnchor.transform.position = new Vector3(transform.position.x+0.16f,transform.position.y+0.5f,transform.position.z+0f);
             dirFacing = -1f;
         }
 
