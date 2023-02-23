@@ -8,11 +8,13 @@ public class PauseMenu : MonoBehaviour
     public AudioSource music, pauseMusic;
     public GameObject pauseCanvas;
     private GameObject targetCanvas;
+    private CharacterMovement charMov;
 
     void Start()
     {
         targetCanvas = (GameObject) Instantiate(pauseCanvas, new Vector3(0, 0, 0), Quaternion.identity);
         targetCanvas.SetActive(false);
+        targetCanvas.GetComponent<Canvas>().worldCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -27,6 +29,7 @@ public class PauseMenu : MonoBehaviour
                 music.Pause();
                 pauseMusic.Play();
                 targetCanvas.SetActive(true);
+                targetCanvas.GetComponent<PauseParent>().blink.awoken = true;
             }
             else
             {
@@ -34,6 +37,7 @@ public class PauseMenu : MonoBehaviour
                 pauseMusic.Stop();
                 music.UnPause();
                 targetCanvas.SetActive(false);
+                targetCanvas.GetComponent<PauseParent>().blink.CancelInvoke();
             }
         }
         

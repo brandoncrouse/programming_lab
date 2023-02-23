@@ -7,19 +7,29 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private HairAnchor hairAnchor;
     [SerializeField] private GameObject hairObject;
     public float yOffset, spriteRot;
-    public float squashFactor, stretchFactor, ssLerpSpeed;
+    public float squashFactor, stretchFactor, ssLerpSpeed, camSpeed;
     public GameObject sprite, dashGhostPrefab;
     private GameObject dashGhost;
 
     //movement
-    public float maxSpeed, coyoteTime;
-    private float moveSpeed;
-    private float horizontalMovement;
+    public float maxSpeed, coyoteTime = 0.125f;
+    private float moveSpeed, originalGravity;
+    private float horizontalMovement, horizontalDir, verticalDir;
     private bool canCoyote, coyoteJumping;
 
     //components
     private Rigidbody2D rb;
     private SpriteRenderer srender;
+    public GameObject mainCam;
+
+    //camera
+    private Vector3 camPos;
+
+    //wallslide
+    private bool isWallSliding, canWallSlide, didWallSlide;
+    public float wallSlidingSpeed, wallSlider;
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private LayerMask wallLayer;
 
     //jumping and landing
     public float jumpForce, jumpDash;
@@ -50,6 +60,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Start()
     {
+
         //init shader for white flash
         shaderGUItext = Shader.Find("GUI/Text Shader");
         shaderSpritesDefault = Shader.Find("Sprites/Default");
@@ -58,27 +69,50 @@ public class CharacterMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         srender = sprite.GetComponent<SpriteRenderer>();
         moveSpeed = maxSpeed;
+        mainCam = GameObject.Find("Main Camera");
+        originalGravity = rb.gravityScale;
+
+        //init camera pos
+        camPos = mainCam.transform.position;
     }
 
     private void Update()
     {
+        //update wallcheck position
+        wallCheck.transform.position = new Vector3(transform.position.x + (dirFacing * 0.3125f), transform.position.y + 0.1875f, 0f);
+
+        //camera movement
+        camPos = Vector3.Lerp(camPos, new Vector3(transform.position.x,0f,-3f), Time.deltaTime * camSpeed);
+        mainCam.transform.position = camPos;
         hairSpriteOffsets();
 
+        //do not run following code if dashing
         if (isDashing)
         {
             return;
         }
 
         horizontalMovement = Input.GetAxis("Horizontal");
+        horizontalDir = Input.GetAxisRaw("Horizontal");
+        verticalDir = Input.GetAxisRaw("Vertical");
 
         sprite.transform.rotation = Quaternion.Euler(0.0f,0.0f,horizontalMovement * -spriteRot);
 
         onGround = floorCollider.IsTouching(floorFilter);
 
+        bool wasWallSliding = isWallSliding;
+        wallSlide();
+        if (wasWallSliding && !isWallSliding)
+        {
+            wasWallSliding = false;
+            StartCoroutine(coyoteJump(0.25f));
+        }
 
         //kick up dust when landing
         if (onGround)
         {
+            didWallSlide = false;
+            canWallSlide = true;
             if (canLand)
             {
                 sprite.transform.localScale = new Vector3(1.3f * squashFactor,0.8f * squashFactor,1f);
@@ -129,10 +163,14 @@ public class CharacterMovement : MonoBehaviour
         }
 
         //coyote jump
-        if (Input.GetKeyDown(KeyCode.Space) && coyoteJumping && rb.velocity.y < 0f)
+        if (Input.GetKeyDown(KeyCode.Space) && coyoteJumping && rb.velocity.y <= 0f)
         {
             justJumped = true;
             sfxSource.PlayOneShot(jumpSound);
+            if (didWallSlide)
+            {
+                canWallSlide = false;
+            }
         }
         
         //dash
@@ -143,7 +181,6 @@ public class CharacterMovement : MonoBehaviour
                 StartCoroutine(Dash());
             }
         }
-        
     }
 
     private void FixedUpdate()
@@ -195,6 +232,7 @@ public class CharacterMovement : MonoBehaviour
             flipDust.Play();
         }
         
+        
     }
 
     private IEnumerator jumpTimer()
@@ -206,28 +244,34 @@ public class CharacterMovement : MonoBehaviour
     //thanks to Bendux on youtube for part of the dash function
     private IEnumerator Dash()
     {
+        coyoteJumping = false;
         sfxSource.PlayOneShot(dashSound);
         sfxSource.PlayOneShot(zapSound);
         canDash = false;
         isDashing = true;
-        float originalGravity = rb.gravityScale;
-        //rb.gravityScale = 0;
-        rb.velocity = new Vector2(dirFacing * dashingPower, 0f);
+        rb.gravityScale = 0;
+        //rb.velocity = new Vector2(dirFacing * dashingPower, 0f);
+        if (horizontalDir == 0f && verticalDir == 0f)
+        {
+            horizontalDir = dirFacing;
+        }
+        rb.velocity = new Vector2(horizontalDir, verticalDir).normalized * new Vector2(dirFacing * dashingPower, 0f).magnitude;
         dashDust.Play();
         tr.emitting = true;
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;
         rb.gravityScale = originalGravity;
+        rb.velocity = rb.velocity.normalized * 3f;
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
         StartCoroutine(blinkSprite());
     }
 
-    private IEnumerator coyoteJump()
+    private IEnumerator coyoteJump(float _cTime = 0.125f)
     {
         coyoteJumping = true;
-        yield return new WaitForSeconds(coyoteTime);
+        yield return new WaitForSeconds(_cTime);
         coyoteJumping = false;
     }
 
@@ -256,5 +300,37 @@ public class CharacterMovement : MonoBehaviour
         currentOffset.y /= 1f - (-Mathf.Abs(rb.velocity.x) / 12);
 
         hairAnchor.partOffset = currentOffset;
+    }
+
+    private void wallSlide()
+    {
+        if (isWalled() && !onGround && Input.GetAxisRaw("Horizontal") != 0f && canWallSlide)
+        {
+            isWallSliding = true;
+            if (!didWallSlide)
+            {
+                wallSlidingSpeed = 0f;
+                wallSlider = 0f;
+            }
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+            wallSlidingSpeed = Mathf.Clamp(wallSlidingSpeed += wallSlider * Time.deltaTime, 0f, 14f);
+            wallSlider += 7f * Time.deltaTime;
+            Debug.Log(wallSlidingSpeed);
+            coyoteJumping = true;
+            didWallSlide = true;
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+    private bool isWalled()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position,0.2f,wallLayer);
+    }
+
+    private Vector2 Abs(Vector2 _vec) {
+        return new Vector2(Mathf.Abs(_vec.x), Mathf.Abs(_vec.y));
     }
 }
