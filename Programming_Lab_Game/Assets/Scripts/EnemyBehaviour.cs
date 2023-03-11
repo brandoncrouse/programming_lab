@@ -42,9 +42,6 @@ public class EnemyBehaviour : MonoBehaviour
                 horizontalMovement = 1f;
             }
             checkIdleSwitch();
-            
-            Debug.Log(horizontalMovement);
-            Debug.Log(state);
         }
         if (state.Equals("idle"))
         {

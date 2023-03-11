@@ -212,7 +212,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680239149272790841}
   serializedVersion: 8
-  lengthInSec: 0.1
+  lengthInSec: 0.12
   simulationSpeed: 1.4
   stopAction: 0
   cullingMode: 0
@@ -10824,7 +10824,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.8125, y: 1.0625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -20561,6 +20561,20 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  spikesFilter:
+    useTriggers: 1
+    useLayerMask: 1
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 1024
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
   jumpDust: {fileID: 2789465223380592307}
   landDust: {fileID: 4007328959790751782}
   flipDust: {fileID: 6309123638628622909}
@@ -20700,7 +20714,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b570d89ac01e761419c6bd9f893ae53e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 889d8fba39a87e54ca6939b6c4dd4afe, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.392
   m_Pitch: 1

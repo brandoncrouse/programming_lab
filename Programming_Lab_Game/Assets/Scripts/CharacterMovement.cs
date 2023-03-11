@@ -48,7 +48,7 @@ public class CharacterMovement : MonoBehaviour
     //collisions
     public bool onGround = false;
     public Collider2D floorCollider;
-    public ContactFilter2D floorFilter;
+    public ContactFilter2D floorFilter, spikesFilter;
     private float dirFacing = 1f;
 
     //particles
@@ -98,6 +98,16 @@ public class CharacterMovement : MonoBehaviour
         sprite.transform.rotation = Quaternion.Euler(0.0f,0.0f,horizontalMovement * -spriteRot);
 
         onGround = floorCollider.IsTouching(floorFilter);
+
+        //hit by spikes
+        if (floorCollider.IsTouching(spikesFilter))
+        {
+            DebugScript.resetScene();
+        }
+        else
+        {
+            
+        }
 
         bool wasWallSliding = isWallSliding;
         wallSlide();
@@ -259,7 +269,7 @@ public class CharacterMovement : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;
         rb.gravityScale = originalGravity;
-        rb.velocity = rb.velocity.normalized * 3f;
+        rb.velocity = rb.velocity.normalized * 4f;
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
@@ -302,7 +312,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void wallSlide()
     {
-        if (isWalled() && !onGround && Input.GetAxisRaw("Horizontal") != 0f && canWallSlide)
+        if (isWalled() && !onGround && /*Input.GetAxisRaw("Horizontal") != 0f &&*/ canWallSlide)
         {
             isWallSliding = true;
             if (!didWallSlide)
