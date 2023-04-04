@@ -20,6 +20,7 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer srender;
     public GameObject mainCam;
+    private Player_Inventory inv;
 
     //camera
     private Vector3 camPos;
@@ -67,6 +68,7 @@ public class CharacterMovement : MonoBehaviour
         //init components
         rb = GetComponent<Rigidbody2D>();
         srender = sprite.GetComponent<SpriteRenderer>();
+        inv = GetComponent<Player_Inventory>();
         moveSpeed = maxSpeed;
         mainCam = GameObject.Find("Main Camera");
         originalGravity = rb.gravityScale;
@@ -339,5 +341,17 @@ public class CharacterMovement : MonoBehaviour
 
     private Vector2 Abs(Vector2 _vec) {
         return new Vector2(Mathf.Abs(_vec.x), Mathf.Abs(_vec.y));
+    }
+
+    public void SavePlayer()
+    {
+        SaveSystem.SavePlayer(inv);
+    }
+
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+        inv.coins = data.coins;
+        transform.position = new Vector2(data.position[0], data.position[1]);
     }
 }
