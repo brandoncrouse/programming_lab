@@ -5,7 +5,7 @@ using TMPro;
 
 public class CoinTracker : MonoBehaviour
 {
-    public TextMeshProUGUI tex;
+    public TextMeshProUGUI tex, tex2;
     private GameObject player;
     // Start is called before the first frame update
     void Start()
@@ -17,5 +17,6 @@ public class CoinTracker : MonoBehaviour
     void Update()
     {
         tex.text = "Coins: " + player.GetComponent<Player_Inventory>().coins.ToString();
+        tex2.text = "INVENTORY<br>" + player.GetComponent<PlayerInvSystem>().inv[0] + "<br>" + player.GetComponent<PlayerInvSystem>().inv[1];
     }
 }

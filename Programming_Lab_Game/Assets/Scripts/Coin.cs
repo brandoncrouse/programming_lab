@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    Collectable coin;
+    public Collectable coin;
     GameObject player;
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,7 @@ public class Coin : MonoBehaviour
     void OnTriggerEnter2D()
     {
         player.GetComponent<Player_Inventory>().coins += coin.coinValue;
+        player.GetComponent<PlayerInvSystem>().AddToInventory("Coin");
         Debug.Log(coin.rarity);
         Destroy(gameObject);
     }
